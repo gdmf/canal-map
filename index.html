@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <style>
+        
+        #mapid { height: 400px; }
+    </style>
+    
+</head>
+<body>
+    <div id="mapid"></div>
+</body>
+<script>
+    var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGVycmFpbmZpcm1hIiwiYSI6InJBRi05azQifQ.hgCgPpkInPAxBh_A6H2nfA', {
+
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'your.mapbox.project.id',
+        accessToken: 'your.mapbox.public.access.token'
+    }).addTo(mymap);
+</script>
+</html>
