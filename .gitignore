@@ -1,0 +1,14 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# virtualenv
+canal-map-env/
+
+# photos
+utils/canal-photos/
+
+# for now
+utils/
+
+NOTES.txt

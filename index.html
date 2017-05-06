@@ -2,33 +2,56 @@
 <html>
 <head>
     <title>canal-map</title>
+    <meta charset="utf-8" />
 <!--     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> -->
-    <link rel="stylesheet" href="css/leaflet.css">
-    <link rel="stylesheet" href="css/MarkerCluster.css" />
-    <link rel="stylesheet" href="css/Leaflet.Photo.css" />
-    <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="lib/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="lib/cluster/MarkerCluster.css" />  
+    <link rel="stylesheet" href="lib/Leaflet.Photo.css" />   
+    <link rel="stylesheet" href="css/map.css" />
 </head>
 <body>
     <div id="map"></div>
-<!--     <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script> -->
-    <script src="js/leaflet.js"></script>
-    <script src="js/leaflet.markercluster.js"></script>
-    <script src="js/Leaflet.Photo.js"></script>
-    
+    <script src="lib/reqwest.min.js"></script>
+    <script src="lib/leaflet/leaflet.js"></script>
+    <script src="lib/cluster/leaflet.markercluster.js"></script>    
+    <script src="lib/Leaflet.Photo.js"></script> 
     <script>
-        var map = L.map('map', {
-            maxZoom: 14
-        }).setView([51.505, -0.09], 13);
+    var map = L.map('map', {
+        maxZoom: 14
+    });
 
-        L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGVycmFpbmZpcm1hIiwiYSI6InJBRi05azQifQ.hgCgPpkInPAxBh_A6H2nfA', {
+    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGVycmFpbmZpcm1hIiwiYSI6InJBRi05azQifQ.hgCgPpkInPAxBh_A6H2nfA', {
 
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
         }).addTo(map);
 
-        // var photoLayer = L.photo.cluster().on('click', function (evt) {
-        //     var photo = evt.layer.photo, 
-        //             template = '<img src="{url}"/></a><p>{caption}</p>';
-        // })
+    var photoLayer = L.photo.cluster().on('click', function (evt) {
+        var photo = evt.layer.photo,
+            template = '<img src="{url}" width="300" height="300" /></a><p>{caption}</p>';
+
+        if (photo.video && (!!document.createElement('video').canPlayType('video/mp4; codecs=avc1.42E01E,mp4a.40.2'))) {
+            template = '<video autoplay controls poster="{url}" width="300" height="300"><source src="{video}" type="video/mp4"/></video>';
+        }; 
+
+        evt.layer.bindPopup(L.Util.template(template, photo), {
+            className: "leaflet-popup-photo",
+            minWidth: 300
+        }).openPopup();
+    });
+
+    // reqwest({
+    //     url: 'http://turban.cartodb.com/api/v2/sql?q=SELECT latitude AS lat, longitude AS lng, image_thumb AS thumbnail, image_standard AS url, video_standard AS video, caption FROM instagram WHERE the_geom %26%26 ST_SetSRID(ST_MakeBox2D(ST_Point(5.727, 59.124), ST_Point(5.924, 59.305)), 4326)',
+    //     success: function (data) {
+    //         photoLayer.add(data.rows).addTo(map);
+    //         map.fitBounds(photoLayer.getBounds());
+    //     }
+    // });
+
+    data = {"rows":[{"lat":59.2606475,"lng":5.8837028,"thumbnail":"http://scontent-b.cdninstagram.com/hphotos-xpf1/t51.2885-15/10474949_1443783245873050_762568554_s.jpg","url":"http://scontent-b.cdninstagram.com/hphotos-xpf1/t51.2885-15/10474949_1443783245873050_762568554_n.jpg","video":"","caption":"Nice start"},{"lat":59.2603255,"lng":5.8837065,"thumbnail":"http://scontent-a.cdninstagram.com/hphotos-xaf1/t51.2885-15/10483524_1505204783024489_1765672135_s.jpg","url":"http://scontent-a.cdninstagram.com/hphotos-xaf1/t51.2885-15/10483524_1505204783024489_1765672135_n.jpg","video":"","caption":"Biking perfect!"},{"lat":59.26864328,"lng":5.85271421,"thumbnail":"http://scontent-a.cdninstagram.com/hphotos-xap1/t51.2885-15/10413099_260438980827184_1019066601_s.jpg","url":"http://scontent-a.cdninstagram.com/hphotos-xap1/t51.2885-15/10413099_260438980827184_1019066601_n.jpg","video":"","caption":"GPS field work can be hard."}, {"lat":59.2609657,"lng":5.8075781,"thumbnail":"http://scontent-b.cdninstagram.com/hphotos-xfp1/t51.2885-15/10424553_655368234552211_1445580305_s.jpg","url":"http://scontent-b.cdninstagram.com/hphotos-xfp1/t51.2885-15/10424553_655368234552211_1445580305_n.jpg","video":"http://scontent-b.cdninstagram.com/hphotos-xpa1/t50.2886-16/10480390_690787890958824_25587481_n.mp4","caption":"#glassmanet #krabbe #idyll"}],"time":0.012,"fields":{"lat":{"type":"number"},"lng":{"type":"number"},"thumbnail":{"type":"string"},"url":{"type":"string"},"video":{"type":"string"},"caption":{"type":"string"}},"total_rows":18};
+    photoLayer.add(data.rows).addTo(map);
+    map.fitBounds(photoLayer.getBounds());
+
+
     </script>
 </body>
 </html>
