@@ -8,7 +8,7 @@ def main():
     """A utility for resizing photos"""
     thumbnail_size = (80, 80)
     popup_size = (640, 640)
-    photo_dir = r'C:\photo\dir'
+    photo_dir = r'C:\_webdev\maps\canal-map-photos\src'
 
     photos = [
         os.path.join(photo_dir, f)

@@ -11,7 +11,7 @@ def main():
     bucket_name = 'canal-photos'
     bucket_region = 'us-west-1'
     bucket = s3.Bucket(bucket_name)
-    photo_directory = r'C:\photo\directory'
+    photo_directory = r'C:\_webdev\maps\canal-map-photos\src\upload'
 
     # upload_photos(photo_directory, bucket)
     # download_photos(photo_directory, bucket)
