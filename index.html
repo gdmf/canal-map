@@ -17,7 +17,7 @@
     <script src="lib/Leaflet.Photo.js"></script> 
     <script>
     var map = L.map('map', {
-        maxZoom: 14
+        maxZoom: 18
     });
 
     L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGVycmFpbmZpcm1hIiwiYSI6InJBRi05azQifQ.hgCgPpkInPAxBh_A6H2nfA', {
@@ -27,7 +27,7 @@
 
     var photoLayer = L.photo.cluster().on('click', function (evt) {
         var photo = evt.layer.photo,
-            template = '<img src="{url}" width="300" height="300" /></a><p>{caption}</p>';
+            template = '<img src="{url}" width="600" height="450" /></a><p>{caption}</p>';
 
         if (photo.video && (!!document.createElement('video').canPlayType('video/mp4; codecs=avc1.42E01E,mp4a.40.2'))) {
             template = '<video autoplay controls poster="{url}" width="300" height="300"><source src="{video}" type="video/mp4"/></video>';
@@ -35,19 +35,11 @@
 
         evt.layer.bindPopup(L.Util.template(template, photo), {
             className: "leaflet-popup-photo",
-            minWidth: 300
+            minWidth: 600
         }).openPopup();
     });
 
-    // reqwest({
-    //     url: 'http://turban.cartodb.com/api/v2/sql?q=SELECT latitude AS lat, longitude AS lng, image_thumb AS thumbnail, image_standard AS url, video_standard AS video, caption FROM instagram WHERE the_geom %26%26 ST_SetSRID(ST_MakeBox2D(ST_Point(5.727, 59.124), ST_Point(5.924, 59.305)), 4326)',
-    //     success: function (data) {
-    //         photoLayer.add(data.rows).addTo(map);
-    //         map.fitBounds(photoLayer.getBounds());
-    //     }
-    // });
-
-    data = {"rows":[{"lat":59.2606475,"lng":5.8837028,"thumbnail":"http://scontent-b.cdninstagram.com/hphotos-xpf1/t51.2885-15/10474949_1443783245873050_762568554_s.jpg","url":"http://scontent-b.cdninstagram.com/hphotos-xpf1/t51.2885-15/10474949_1443783245873050_762568554_n.jpg","video":"","caption":"Nice start"},{"lat":59.2603255,"lng":5.8837065,"thumbnail":"http://scontent-a.cdninstagram.com/hphotos-xaf1/t51.2885-15/10483524_1505204783024489_1765672135_s.jpg","url":"http://scontent-a.cdninstagram.com/hphotos-xaf1/t51.2885-15/10483524_1505204783024489_1765672135_n.jpg","video":"","caption":"Biking perfect!"},{"lat":59.26864328,"lng":5.85271421,"thumbnail":"http://scontent-a.cdninstagram.com/hphotos-xap1/t51.2885-15/10413099_260438980827184_1019066601_s.jpg","url":"http://scontent-a.cdninstagram.com/hphotos-xap1/t51.2885-15/10413099_260438980827184_1019066601_n.jpg","video":"","caption":"GPS field work can be hard."}, {"lat":59.2609657,"lng":5.8075781,"thumbnail":"http://scontent-b.cdninstagram.com/hphotos-xfp1/t51.2885-15/10424553_655368234552211_1445580305_s.jpg","url":"http://scontent-b.cdninstagram.com/hphotos-xfp1/t51.2885-15/10424553_655368234552211_1445580305_n.jpg","video":"http://scontent-b.cdninstagram.com/hphotos-xpa1/t50.2886-16/10480390_690787890958824_25587481_n.mp4","caption":"#glassmanet #krabbe #idyll"}],"time":0.012,"fields":{"lat":{"type":"number"},"lng":{"type":"number"},"thumbnail":{"type":"string"},"url":{"type":"string"},"video":{"type":"string"},"caption":{"type":"string"}},"total_rows":18};
+    data = {"rows": [{"lat": "53.19160833333333", "lng": "-2.44165", "caption": "The Fjord Prince, Middlewich", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6306.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6306.JPG", "video": ""}, {"lat": "53.191222222222216", "lng": "-2.4407", "caption": "Our first lock", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6309.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6309.JPG", "video": ""}, {"lat": "53.187549999999995", "lng": "-2.4446944444444445", "caption": "Bridge 30, Middlewich", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6314.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6314.JPG", "video": ""}, {"lat": "53.187711111111106", "lng": "-2.450155555555556", "caption": "Bridge 28", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6317.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6317.JPG", "video": ""}, {"lat": "53.18819722222222", "lng": "-2.458602777777778", "caption": "Our skipper", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6321.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6321.JPG", "video": ""}, {"lat": "53.18776666666666", "lng": "-2.467311111111111", "caption": "Bridge 26", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6323.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6323.JPG", "video": ""}, {"lat": "53.184374999999996", "lng": "-2.475427777777778", "caption": "Bridge 25", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6325.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6325.JPG", "video": ""}, {"lat": "53.17870277777777", "lng": "-2.4822833333333336", "caption": "Radial fence", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6327.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6327.JPG", "video": ""}, {"lat": "53.17358888888889", "lng": "-2.4846222222222223", "caption": "None", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6329.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6329.JPG", "video": ""}, {"lat": "53.172805555555556", "lng": "-2.485116666666667", "caption": "Bridge 22", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6333.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6333.JPG", "video": ""}, {"lat": "53.16630277777777", "lng": "-2.4838194444444444", "caption": "Bridge 21", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6336.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6336.JPG", "video": ""}, {"lat": "53.16307777777778", "lng": "-2.4790222222222225", "caption": "None", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6339.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6339.JPG", "video": ""}, {"lat": "53.1413", "lng": "-2.5005333333333333", "caption": "The Badger, Church Minshull", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6342.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6342.JPG", "video": ""}, {"lat": "53.126761111111115", "lng": "-2.632127777777778", "caption": "None", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6344.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6344.JPG", "video": ""}, {"lat": "53.12678611111111", "lng": "-2.6320944444444443", "caption": "None", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6347.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6347.JPG", "video": ""}, {"lat": "53.134727777777776", "lng": "-2.670261111111111", "caption": "None", "thumbnail": "https://s3-us-west-1.amazonaws.com/canal-photos/thumbnail_IMG_6350.JPG", "url": "https://s3-us-west-1.amazonaws.com/canal-photos/popup_IMG_6350.JPG", "video": ""}],"time":0.012,"fields":{"lat":{"type":"number"},"lng":{"type":"number"},"thumbnail":{"type":"string"},"url":{"type":"string"},"video":{"type":"string"},"caption":{"type":"string"}},"total_rows":16};
     photoLayer.add(data.rows).addTo(map);
     map.fitBounds(photoLayer.getBounds());
 

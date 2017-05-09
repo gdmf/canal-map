@@ -8,10 +8,4 @@ canal-map-env/
 # IDE files
 .idea/
 
-# photos
-utils/canal-photos/
-
-# for now
-utils/
-
 NOTES.txt
