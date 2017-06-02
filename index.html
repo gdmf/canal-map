@@ -94,7 +94,12 @@
     // });
 
     $('.btn-primary').on('click', function(){
-        alert($(this).find('input').attr('id'));
+        if ($(this).find('input').is(':checked')) {
+            console.log($(this).find('input').attr('id') + ' is checked')
+        }
+        else {
+            console.log($(this).find('input').attr('id'));
+        }
     }); 
 
     </script>
