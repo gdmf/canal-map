@@ -37,6 +37,7 @@ def metadata_from_bucket(bucket, region):
             'lat': obj.metadata['lat'],
             'lng': obj.metadata['lng'],
             'caption': obj.metadata['caption'],
+            'datetime': obj.metadata['datetime'],
             'thumbnail': thumbnail_url,
             'url': url,
             'video': '',

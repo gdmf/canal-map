@@ -1,3 +1,4 @@
+import datetime
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 
@@ -8,6 +9,7 @@ def main():
 
 def load_metadata(photo_path):
     exif_data = get_exif_data(photo_path)
+    dt = get_datetime(exif_data)
     lat, lng = get_lat_lon(exif_data)
     caption = get_comment(exif_data)
 
@@ -15,6 +17,7 @@ def load_metadata(photo_path):
         "lat": str(lat),
         "lng": str(lng),
         "caption": caption,
+        "datetime": dt,
     }
 
 
@@ -32,6 +35,20 @@ def get_comment(exif_data):
 
     if comment:
         return comment
+
+
+def get_datetime(exif_data):
+    dt = None
+
+    if 'DateTime' in exif_data:
+        dt_string = exif_data['DateTime']
+        year, month, day = dt_string.split(" ")[0].split(":")
+        hour, minute, second = dt_string.split(" ")[1].split(":")
+        dt_obj = datetime.datetime(int(year), int(month), int(day), int(hour), int(minute))
+        dt = '{:%A %b %d %Y %I:%M %p}'.format(dt_obj)
+
+    if dt:
+        return dt
 
 
 def get_exif_data(fn):
