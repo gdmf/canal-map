@@ -8,10 +8,10 @@ s3 = boto3.resource('s3')
 
 
 def main():
-    bucket_name = 'canal-photos'
+    bucket_name = 'canal-photos-chester'
     bucket_region = 'us-west-1'
     bucket = s3.Bucket(bucket_name)
-    photo_directory = r'C:\_webdev\maps\canal-map-photos\src\upload'
+    photo_directory = r'C:\_webdev\maps\canal-map-photos\canal-photos-chester\upload'
 
     # upload_photos(photo_directory, bucket)
     # download_photos(photo_directory, bucket)
@@ -26,18 +26,20 @@ def metadata_from_bucket(bucket, region):
 
     client = boto3.client('s3', region)
 
-    for key in bucket.objects.filter(Prefix='thumbnail'):
+    for key in bucket.objects.filter(Prefix='popup'):
         obj = key.Object()
-        thumbnail_url = "{}/{}/{}".format(
+        url = "{}/{}/{}".format(
             client.meta.endpoint_url, bucket.name, key.key
         )
-        url = thumbnail_url.replace("thumbnail", "popup")
+        thumbnail_url = url.replace("popup", "thumbnail")
 
         d = {
             'lat': obj.metadata['lat'],
             'lng': obj.metadata['lng'],
             'caption': obj.metadata['caption'],
             'datetime': obj.metadata['datetime'],
+            'width': obj.metadata['width'],
+            'height': obj.metadata['height'],
             'thumbnail': thumbnail_url,
             'url': url,
             'video': '',

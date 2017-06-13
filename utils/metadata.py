@@ -4,20 +4,23 @@ from PIL.ExifTags import TAGS, GPSTAGS
 
 
 def main():
-    pass
+    load_metadata()
 
 
 def load_metadata(photo_path):
     exif_data = get_exif_data(photo_path)
-    dt = get_datetime(exif_data)
     lat, lng = get_lat_lon(exif_data)
     caption = get_comment(exif_data)
+    dt = get_datetime(exif_data)
+    width, height = get_dimensions(photo_path)
 
     return {
         "lat": str(lat),
         "lng": str(lng),
         "caption": caption,
         "datetime": dt,
+        "width": width,
+        "height": height,
     }
 
 
@@ -29,19 +32,18 @@ def _get_if_exist(data, key):
 
 
 def get_comment(exif_data):
-    comment = 'None'
+    comment = ' '
     if 'XPComment' in exif_data:
         comment = exif_data['XPComment'].decode('utf-16le').rstrip('\x00')
 
-    if comment:
-        return comment
+    return comment
 
 
 def get_datetime(exif_data):
     dt = None
 
-    if 'DateTime' in exif_data:
-        dt_string = exif_data['DateTime']
+    if 'DateTimeOriginal' in exif_data:
+        dt_string = exif_data['DateTimeOriginal']
         year, month, day = dt_string.split(" ")[0].split(":")
         hour, minute, second = dt_string.split(" ")[1].split(":")
         dt_obj = datetime.datetime(int(year), int(month), int(day), int(hour), int(minute))
@@ -49,6 +51,13 @@ def get_datetime(exif_data):
 
     if dt:
         return dt
+
+
+def get_dimensions(photo_path):
+    im = Image.open(photo_path)
+    width, height = im.size
+    width, height = str(width), str(height)
+    return width, height
 
 
 def get_exif_data(fn):

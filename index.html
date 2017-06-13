@@ -3,9 +3,8 @@
 <head>
     <title>canal-map</title>
     <meta charset="utf-8" />
-<!--     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> -->
-    <link rel="stylesheet" href="lib/leaflet/leaflet.css" />
-    <link rel="stylesheet" href="lib/cluster/MarkerCluster.css" />  
+    <link rel="stylesheet" href="lib/leaflet/_old/leaflet.css" />
+    <link rel="stylesheet" href="lib/cluster/MarkerCluster.css" />
     <link rel="stylesheet" href="lib/Leaflet.Photo.css" />
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/map.css" />
@@ -29,151 +28,29 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <div class="btn-group" data-toggle="buttons">
                     <label class="btn btn-primary active navbar-btn">
-                        <input class="extents" type="checkbox" checked name="options" id="option1"> Middlewich to Chester 
+                        <input class="extents" type="checkbox" checked name="options" id="option1">1. Middlewich to Chester
                     </label>
                     <label class="btn btn-primary navbar-btn">
-                        <input class="extents" type="checkbox" name="options" id="option2"> In and Around Chester
+                        <input class="extents" type="checkbox" name="options" id="option2">2. In & Around Chester
                     </label>
                     <label class="btn btn-primary navbar-btn">
-                        <input class="extents" type="checkbox" name="options" id="option3"> Returning to Middlewich
+                        <input class="extents" type="checkbox" name="options" id="option3">3. Return to Middlewich
                     </label>
                 </div>
-                <button id="reset" type="button" class="btn btn-secondary navbar-btn"> Reset Map Extent </button>
+                <button id="pubs" type="button" class="btn btn-secondary navbar-btn" data-toggle="button" aria-pressed="false">Pubs</button>
+                <button id="reset" type="button" class="btn btn-secondary navbar-btn">Reset Map Extent</button>
             </div><!-- /.navbar-collapse -->
         </div> <!--/.container-fluid -->
     </nav>
         <div id="canal-map"></div>
 
-    
-    <!-- jQuery 2 drops support for IE8: use 1.11.1 -->
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="lib/reqwest.min.js"></script>
-    <script src="lib/leaflet/leaflet.js"></script>
-    <script src="lib/cluster/leaflet.markercluster.js"></script>    
+    <script src="lib/leaflet/_old/leaflet.js"></script>
+    <script src="lib/cluster/leaflet.markercluster.js"></script>
     <script src="lib/Leaflet.Photo.js"></script>
-    <script src="data.json"></script>
-    <script>
-    var map = L.map('canal-map', {
-        maxZoom: 18,
-        minZoom: 7
-    });
-
-    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v10/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGVycmFpbmZpcm1hIiwiYSI6InJBRi05azQifQ.hgCgPpkInPAxBh_A6H2nfA', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        }).addTo(map);
-
-    var westbound_photoLayer = L.photo.cluster().on('click', function (evt) {
-        var photo = evt.layer.photo,
-            template = '<img src="{url}" width="600" height="450" /></a><p>{caption}</p>';
-
-        if (photo.video && (!!document.createElement('video').canPlayType('video/mp4; codecs=avc1.42E01E,mp4a.40.2'))) {
-            template = '<video autoplay controls poster="{url}" width="300" height="300"><source src="{video}" type="video/mp4"/></video>';
-        }; 
-
-        evt.layer.bindPopup(L.Util.template(template, photo), {
-            className: "leaflet-popup-photo",
-            minWidth: 600
-        }).openPopup();
-    });
-
-    var chester_photoLayer = L.photo.cluster().on('click', function (evt) {
-        var photo = evt.layer.photo,
-            template = '<img src="{url}" width="600" height="450" /></a><p>{caption}</p>';
-
-        if (photo.video && (!!document.createElement('video').canPlayType('video/mp4; codecs=avc1.42E01E,mp4a.40.2'))) {
-            template = '<video autoplay controls poster="{url}" width="300" height="300"><source src="{video}" type="video/mp4"/></video>';
-        }; 
-
-        evt.layer.bindPopup(L.Util.template(template, photo), {
-            className: "leaflet-popup-photo",
-            minWidth: 600
-        }).openPopup();
-    });
-
-    var eastbound_photoLayer = L.photo.cluster().on('click', function (evt) {
-        var photo = evt.layer.photo,
-            template = '<img src="{url}" width="600" height="450" /></a><p>{caption}</p>';
-
-        if (photo.video && (!!document.createElement('video').canPlayType('video/mp4; codecs=avc1.42E01E,mp4a.40.2'))) {
-            template = '<video autoplay controls poster="{url}" width="300" height="300"><source src="{video}" type="video/mp4"/></video>';
-        }; 
-
-        evt.layer.bindPopup(L.Util.template(template, photo), {
-            className: "leaflet-popup-photo",
-            minWidth: 600
-        }).openPopup();
-    });
-
-    var extent_photoLayer = L.photo.cluster().on('click', function (evt) {
-        //use for extent
-    });
-
-    // initialize map
-    function fullExtent() {
-        extent_photoLayer.add(middlewich_to_chester_data.rows);
-        extent_photoLayer.add(chester_data.rows);
-        extent_photoLayer.add(chester_to_middlewich_data.rows);
-        map.fitBounds(extent_photoLayer.getBounds());
-    }
-
-    fullExtent();
-
-    westbound_photoLayer.add(middlewich_to_chester_data.rows).addTo(map);
-
-    $('#reset').on('click', function(){
-        fullExtent();
-    });
-
-    $('.btn-primary').on('click', function(){
-        if ($(this).find('input').is(':checked')) {
-
-            // deactivate the layer
-            switch($(this).find('input').attr('id')) {
-                case 'option1': {
-                    westbound_photoLayer.clear();
-                    break;
-                }
-                case 'option2': {
-                    chester_photoLayer.clear();
-                    break;
-                }                
-                case 'option3': {
-                    eastbound_photoLayer.clear();
-                    break;
-                }
-            }            
-        }
-        else {
-           
-            // activate the layer
-
-            switch($(this).find('input').attr('id')) {
-                case 'option1': {
-                    console.log('option1 activated')
-                    westbound_photoLayer.clear();
-                    westbound_photoLayer.add(middlewich_to_chester_data.rows).addTo(map);
-                    map.fitBounds(westbound_photoLayer.getBounds());
-                    break;
-                }
-                case 'option2': {
-                    console.log('option2 activated')
-                    chester_photoLayer.clear();
-                    chester_photoLayer.add(chester_data.rows).addTo(map);
-                    map.fitBounds(chester_photoLayer.getBounds());
-                    break;
-                }                
-                case 'option3': {
-                    console.log('option3 activated')
-                    eastbound_photoLayer.clear();
-                    eastbound_photoLayer.add(chester_to_middlewich_data.rows).addTo(map);
-                    map.fitBounds(eastbound_photoLayer.getBounds());
-                    break;
-                }
-            }
-        }
-    }); 
-
-    </script>
+    <script src="photo_data.json"></script>
+    <script src="canals.geojson"></script>
+    <script src="map.js"></script>
 </body>
 </html>

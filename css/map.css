@@ -8,11 +8,20 @@ html, #canal-map {
 }
 
 .navbar {
-  margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
+.leaflet-marker-photo b {
+    line-height: 6px;
+}
 
+.btn-primary.active {
+    background-color: #a94442;
+}
 
+.btn-primary:hover {
+    background-color: #c84442;
+}
 /* photo/video popup */
 .leaflet-popup-photo a.leaflet-popup-close-button {
 	top: -13px;
