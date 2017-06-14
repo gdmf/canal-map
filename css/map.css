@@ -32,6 +32,7 @@ html, #canal-map {
 /* labels */
 .customlabel {
     font-size: 18px;
+    font-weight: bold;
 }
 
 .leaflet-popup-content-wrapper {

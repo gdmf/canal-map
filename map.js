@@ -56,20 +56,32 @@ $(function() {
         //use for extent
     });
 
+
+    //console.log(photo_data.photos);
+    var photos = photo_data.photos;
+    //console.log("Here");
+    var westbound_data = photos[0].westbound;
+    //console.log(westbound_data);
+    var chester_data = photos[1].chester;
+    //console.log(chester_data);
+    var eastbound_data = photos[2].eastbound;
+    //console.log(eastbound_data);
+
     // initialize map
     function fullExtent() {
         var extent_photoLayer = L.photo.cluster().on('click', function (evt) {
             //use for extent
         });
-        extent_photoLayer.add(westbound_data.rows);
-        extent_photoLayer.add(chester_data.rows);
-        extent_photoLayer.add(eastbound_data.rows);
+        extent_photoLayer.add(westbound_data);
+        extent_photoLayer.add(chester_data);
+        extent_photoLayer.add(eastbound_data);
         map.fitBounds(extent_photoLayer.getBounds());
     }
 
     fullExtent();
 
-    westbound_photoLayer.add(westbound_data.rows).addTo(map);
+
+    westbound_photoLayer.add(westbound_data).addTo(map);
 
     // build an array of coordinates
     /*var latlngs = [];
@@ -128,13 +140,13 @@ $(function() {
     });
 
     var marker = L.marker([53.19162, -2.441514]).addTo(map);
-    marker.bindPopup("<b>Started in Middlewich</b><br>", {autoPan: false, className: 'customlabel'});
+    marker.bindPopup("Started in Middlewich", {autoPan: false, className: 'customlabel'});
 
     var junction_marker = L.marker([53.108675, -2.579658]).addTo(map);
-    junction_marker.bindPopup("<b>Barbridge Junction</b><br>", {autoPan: false, className: 'customlabel'});
+    junction_marker.bindPopup("Barbridge Junction", {autoPan: false, className: 'customlabel'});
 
     var chester_marker = L.marker([53.1918, -2.8927]).addTo(map);
-    chester_marker.bindPopup("<b>Chester</b><br>", {autoPan: false, className: 'customlabel'});
+    chester_marker.bindPopup("Chester", {autoPan: false, className: 'customlabel'});
 
     function labelDelay() {
         window.setTimeout(delayedPopup1, 500);
@@ -208,19 +220,19 @@ $(function() {
             switch($(this).find('input').attr('id')) {
                 case 'option1': {
                     westbound_photoLayer.clear();
-                    westbound_photoLayer.add(westbound_data.rows).addTo(map);
+                    westbound_photoLayer.add(westbound_data).addTo(map);
                     map.fitBounds(westbound_photoLayer.getBounds());
                     break;
                 }
                 case 'option2': {
                     chester_photoLayer.clear();
-                    chester_photoLayer.add(chester_data.rows).addTo(map);
+                    chester_photoLayer.add(chester_data).addTo(map);
                     map.fitBounds(chester_photoLayer.getBounds());
                     break;
                 }
                 case 'option3': {
                     eastbound_photoLayer.clear();
-                    eastbound_photoLayer.add(eastbound_data.rows).addTo(map);
+                    eastbound_photoLayer.add(eastbound_data).addTo(map);
                     map.fitBounds(eastbound_photoLayer.getBounds());
                     break;
                 }
