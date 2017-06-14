@@ -110,34 +110,62 @@ $(function() {
     }
 
     var geojsonMarkerOptions = {
-        radius: 5,
+        radius: 7,
         fillColor: "#ff7800",
         color: "#000",
-        weight: 1,
+        weight: 2,
         opacity: 1,
-        fillOpacity: 0.8
+        fillOpacity: 1
     };
 
     var pubsLayer = L.geoJson(pubs, {
         pointToLayer: function (feature, latlng) {
             return L.circleMarker(latlng, geojsonMarkerOptions);
+        },
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(feature.properties.NAME, {className: 'customlabel'});
         }
     });
 
     var marker = L.marker([53.19162, -2.441514]).addTo(map);
-    marker.bindPopup("<b>Start/End</b><br>").openPopup();
+    marker.bindPopup("<b>Start & End</b><br>", {autoPan: false, className: 'customlabel'});
 
     var junction_marker = L.marker([53.108675, -2.579658]).addTo(map);
-    junction_marker.bindPopup("<b>Barbridge Junction</b><br>").openPopup();
+    junction_marker.bindPopup("<b>Barbridge Junction</b><br>", {autoPan: false, className: 'customlabel'});
 
     var chester_marker = L.marker([53.1918, -2.8927]).addTo(map);
-    chester_marker.bindPopup("<b>Chester</b><br>").openPopup();
+    chester_marker.bindPopup("<b>Chester</b><br>", {autoPan: false, className: 'customlabel'});
 
-    var popup = L.popup()
-        .setLatLng([53.1918, -2.8927])
-        .setContent("I am a standalone popup.")
-        //.openOn(map);
-    .addTo(map);
+    function labelDelay() {
+        window.setTimeout(delayedPopup1, 500);
+        window.setTimeout(delayedPopup2, 2000);
+        window.setTimeout(delayedPopup3, 3500);
+        window.setTimeout(closer, 6000);
+    }
+
+    function delayedPopup1() {
+        marker.openPopup();
+    }
+
+    function delayedPopup2() {
+        junction_marker.openPopup();
+    }
+
+    function delayedPopup3() {
+        chester_marker.openPopup();
+    }
+
+    function closer() {
+        chester_marker.closePopup();
+    }
+
+    labelDelay();
+
+//    var popup = L.popup()
+//        .setLatLng([53.1918, -2.8927])
+//        .setContent("I am a standalone popup.")
+//        //.openOn(map);
+//    .addTo(map);
 
     //var legend = L.control({position: 'bottomright'});
     //legend.addTo(map);
