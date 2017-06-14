@@ -1,6 +1,7 @@
 body { 
 	margin: 0px;  
 	height: calc(100% - 51px);
+	overflow-y: hidden;
 }
 
 html, #canal-map {
