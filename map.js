@@ -128,7 +128,7 @@ $(function() {
     });
 
     var marker = L.marker([53.19162, -2.441514]).addTo(map);
-    marker.bindPopup("<b>Start & End</b><br>", {autoPan: false, className: 'customlabel'});
+    marker.bindPopup("<b>Started in Middlewich</b><br>", {autoPan: false, className: 'customlabel'});
 
     var junction_marker = L.marker([53.108675, -2.579658]).addTo(map);
     junction_marker.bindPopup("<b>Barbridge Junction</b><br>", {autoPan: false, className: 'customlabel'});
