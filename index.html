@@ -10,6 +10,37 @@
     <link rel="stylesheet" href="css/map.css" />
 </head>
 <body>
+    <!-- Modal -->
+    <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Traveling the Shropshire Union Canal</h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                  <div class="col-md-6"><a href="http://canalrivertrustwaterfront.org.uk/culture/the-wood-engraver/"><img src="images/canal-boat.jpg" class="img-responsive" title="Canal Boat, John O'Connor" alt="Canal Boat engraving by John O'Connor"></a></div>
+                <div class="col-md-6">
+
+                    <p>Maps can serve as vehicles of both anticipation and remembrance. This web map recalls a very pleasant vacation spent traveling by canal through Cheshire, England.</p>
+
+                    <p>The inspiration for this journey was another map, or series of maps. <a href="http://www.jmpearson.co.uk/"><img src="images/welsh-waters-canal-companion-sm.jpg" style="float:left; padding:5px 10px 5px 0px; width:125px; height:92px" title="Pearson's Welsh Waters" alt="Pearson's Welsh Waters"></a><em><a href="http://www.jmpearson.co.uk/">Pearson’s Canal Companion</a></em> series serves as a guide to, map of, and commentary upon many of the canal routes which wend their way through Britain. My uncle introduced me to Pearson’s after a recent journey he and my aunt took on the Trent and Mersey canal.</p>
+
+                    <p>Prior to the development of the railroad in Britain, canals were the primary means of freight transport, linking inland resources, such as coal, with coastal ports. By mid-twentieth century, this canal network had fallen into disuse, but over the past several decades, have seen resurgent use for recreation and leisure. Currently there are about 2,200 miles of navigable canals and rivers in the Britain.</p>
+
+                    <p>In August, 2016, our family rented a 69-foot-long, 7-foot-wide narrowboat (the <em>Fjord Prince</em>), and traveled part of the Shropshire Union Canal. Our route began in Middlewich, and traveled up the Middlewich branch to Barbridge Junction. There we turned north, and made our way to the walled city of Chester, where we spent a day sightseeing before retracing our steps. Along the way we navigated locks, dined at canal-side pubs, visited a castle ruins atop Beeston Crag, and enjoyed the pastoral beauty of the Cheshire countryside.</p>
+
+                </div>
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Top navbar -->
     <nav class="navbar navbar-default navbar-inverse" role="navigation">
         <div class="container-fluid">
@@ -28,17 +59,23 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <div class="btn-group" data-toggle="buttons">
                     <label class="btn btn-primary active navbar-btn">
-                        <input class="extents" type="checkbox" checked name="options" id="option1">1. Middlewich to Chester
+                        <input class="extents" type="checkbox" checked name="options" id="option1">Middlewich to Chester
                     </label>
                     <label class="btn btn-primary navbar-btn">
-                        <input class="extents" type="checkbox" name="options" id="option2">2. In & Around Chester
+                        <input class="extents" type="checkbox" name="options" id="option2">In & Around Chester
                     </label>
                     <label class="btn btn-primary navbar-btn">
-                        <input class="extents" type="checkbox" name="options" id="option3">3. Return to Middlewich
+                        <input class="extents" type="checkbox" name="options" id="option3">Return to Middlewich
                     </label>
                 </div>
                 <button id="pubs" type="button" class="btn btn-secondary navbar-btn" data-toggle="button" aria-pressed="false">Pubs</button>
                 <button id="reset" type="button" class="btn btn-secondary navbar-btn">Reset Map Extent</button>
+                <!-- Button trigger modal -->
+                <button id="about" type="button" class="btn btn-secondary navbar-btn" data-toggle="modal" data-target="#aboutModal">
+                  About
+                </button>
+
+
             </div><!-- /.navbar-collapse -->
         </div> <!--/.container-fluid -->
     </nav>
