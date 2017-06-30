@@ -17,11 +17,13 @@ html, #canal-map {
 }
 
 .btn-primary.active {
-    background-color: #a94442;
+    /* background-color: #a94442;*/
+    background-color: #39b509;
 }
 
 .btn-primary:hover {
-    background-color: #c84442;
+    / *background-color: #c84442; */
+    background-color: #39b509;
 }
 
 .btn:active,
