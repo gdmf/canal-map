@@ -56,16 +56,10 @@ $(function() {
         //use for extent
     });
 
-
-    //console.log(photo_data.photos);
     var photos = photo_data.photos;
-    //console.log("Here");
     var westbound_data = photos[0].westbound;
-    //console.log(westbound_data);
     var chester_data = photos[1].chester;
-    //console.log(chester_data);
     var eastbound_data = photos[2].eastbound;
-    //console.log(eastbound_data);
 
     // initialize map
     function fullExtent() {
@@ -80,22 +74,7 @@ $(function() {
 
     fullExtent();
 
-
     westbound_photoLayer.add(westbound_data).addTo(map);
-
-    // build an array of coordinates
-    /*var latlngs = [];
-    for (i in middlewich_canal.features) {
-        var f = middlewich_canal.features[i]
-        var coordinates = f.geometry.coordinates;
-        for (j in coordinates) {
-            latlngs.push([coordinates[j][1], coordinates[j][0]]);
-        }
-    }
-    console.log(latlngs);
-    var line = L.polyline(latlngs, {snakingSpeed: 200});
-    console.log(line);
-    line.addTo(map).snakeIn();*/
 
     L.geoJson(shropshire_union_canal, {style: context_style}).addTo(map);
 
@@ -172,15 +151,6 @@ $(function() {
     }
 
     labelDelay();
-
-//    var popup = L.popup()
-//        .setLatLng([53.1918, -2.8927])
-//        .setContent("I am a standalone popup.")
-//        //.openOn(map);
-//    .addTo(map);
-
-    //var legend = L.control({position: 'bottomright'});
-    //legend.addTo(map);
 
     $('#reset').on('click', function(){
         fullExtent();
